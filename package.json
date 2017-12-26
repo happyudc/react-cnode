@@ -8,7 +8,7 @@
     "build:client": "webpack --config build/webpack.config.client.js --color",
     "clear": "rimraf dist",
     "dev:client": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.client.js --color",
-    "dev:server": "cross-env NODE_ENV=development node server/server.js",
+    "dev:server": "nodemon server/server.js",
     "build": "npm run clear && npm run build:client && npm run build:server",
     "start": "node server/server.js",
     "lint": "eslint --ext .js --ext .jsx client/",
@@ -25,8 +25,10 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "serve-favicon": "^2.4.5"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -50,9 +52,11 @@
     "http-proxy-middleware": "^0.17.4",
     "husky": "^0.14.3",
     "memory-fs": "^0.4.1",
+    "nodemon": "^1.14.3",
     "react-hot-loader": "^3.0.0",
     "rimraf": "^2.6.2",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.9.7"
+    "webpack-dev-server": "^2.9.7",
+    "webpack-merge": "^4.1.1"
   }
 }
