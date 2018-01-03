@@ -2,9 +2,10 @@ import {
   observable,
   action,
   computed,
+  autorun,
 } from 'mobx'
 
-export class AppStore {
+export class AppState {
   @observable number = 0;
   @observable name = 'jack';
   @computed get msg() {
@@ -15,6 +16,14 @@ export class AppStore {
   }
 }
 
-const appStore = new AppStore();
+const appState = new AppState();
 
-export default appStore
+autorun(() => {
+  // console.log(appState.msg);
+});
+
+setInterval(() => {
+  appState.add();
+}, 1000);
+
+export default appState

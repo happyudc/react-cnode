@@ -8,7 +8,7 @@
     "build:client": "webpack --config build/webpack.config.client.js --color",
     "clear": "rimraf dist",
     "dev:client": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.client.js --color",
-    "dev:server": "nodemon server/server.js",
+    "dev:server": "cross-env NODE_ENV=development nodemon server/server.js",
     "build": "npm run clear && npm run build:client && npm run build:server",
     "start": "node server/server.js",
     "lint": "eslint --ext .js --ext .jsx client/",

@@ -5,6 +5,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const baseConfig = require('./webpack.base')
 const isDev = process.env.NODE_ENV === 'development'
 
+console.log(isDev);
+
 let config = webpackMerge(baseConfig, {
   entry: {
     app: path.join(__dirname, '../client/app.js')
@@ -37,6 +39,13 @@ if (isDev) {
     publicPath: '/public/',
     historyApiFallback: {
       index: '/public/index.html'
+    },
+    proxy: {
+      '/api/*': {
+        target: 'http://localhost:3333',
+        secure: false,
+        changeOrigin: true
+      }
     }
   }
   config.plugins.push(

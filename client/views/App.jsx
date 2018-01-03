@@ -1,16 +1,9 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import {
-  inject,
-  observer,
-} from 'mobx-react'
 import {
   Link,
 } from 'react-router-dom'
 import Routes from '../config/router'
-import { AppStore } from '../store/appStore'
 
-@inject('appStore') @observer
 export default class App extends React.Component {
   componentDidMount() {
     // do something
@@ -23,13 +16,7 @@ export default class App extends React.Component {
         <br />
         <Link to="/detail">详情页</Link>
       </div>,
-      <p key="number">{this.props.appStore.number}</p>,
-      <p key="msg">{this.props.appStore.msg}</p>,
-      <button key="btn" onClick={() => { this.props.appStore.add() }}>click</button>,
       <Routes key="route" />,
     ]
   }
 }
-App.propTypes = {
-  appStore: PropTypes.instanceOf(AppStore).isRequired,
-};

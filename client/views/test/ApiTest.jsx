@@ -1,19 +1,34 @@
 import React from 'react'
 import axios from 'axios'
 
-
+/* eslint-disable */
 export default class ApiTest extends React.Component {
 
   getTopics = () => {
     axios.get('/api/topics')
       .then(resp => {
-        console.log(resp.data)
-      })
+        console.log(resp);
+      }).catch(err => {
+        console.log(err)
+    })
   };
 
   login = () => {
     axios.post('/api/user/login', {
-      accessToken: ''
+      accessToken: '',
+    }).then(resp => {
+      console.log(resp);
+    }).catch(err => {
+      console.log(err)
+    })
+  };
+
+  markAll = () => {
+    axios.post('/api/message/mark_all?needAccessToken=true')
+      .then(resp => {
+        console.log(resp)
+      }).catch(err => {
+      console.log(err)
     })
   };
 
@@ -27,3 +42,4 @@ export default class ApiTest extends React.Component {
     )
   }
 }
+/* eslint-enable */

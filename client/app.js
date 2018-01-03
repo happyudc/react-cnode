@@ -5,17 +5,18 @@ import {
   BrowserRouter,
 } from 'react-router-dom'
 import { AppContainer } from 'react-hot-loader' // eslint-disable-line
-import appStore from '../client/store/appStore'
+import appState from './store/appState'
 import App from './views/App'
 
 // ReactDom.hydrate(<App />, document.getElementById('root'));
+
 
 const root = document.getElementById('root');
 
 const render = (Component) => {
   ReactDom.hydrate(
     <AppContainer>
-      <Provider appStore={appStore}>
+      <Provider appState={appState}>
         <BrowserRouter>
           <Component />
         </BrowserRouter>
