@@ -5,7 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const baseConfig = require('./webpack.base')
 const isDev = process.env.NODE_ENV === 'development'
 
-console.log(isDev);
 
 let config = webpackMerge(baseConfig, {
   entry: {
