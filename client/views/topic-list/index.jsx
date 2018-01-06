@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Helmet from 'react-helmet'
 import {
   observer,
   inject,
@@ -15,10 +16,23 @@ export default class TopicList extends React.Component {
     // do something
   }
 
+  asyncBootstrap() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        this.props.appState.number = 3
+        resolve(true)
+      })
+    })
+  }
+
   render() {
     return (
       <div>
-        {this.props.appState.msg}
+        <Helmet>
+          <title>This is topic list</title>
+          <meta name="description" content="This is description" />
+        </Helmet>
+        <span> {this.props.appState.msg}</span>
       </div>
     )
   }

@@ -8,11 +8,12 @@
     "build:client": "webpack --config build/webpack.config.client.js --color",
     "clear": "rimraf dist",
     "dev:client": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.client.js --color",
-    "dev:server": "cross-env NODE_ENV=development nodemon server/server.js",
+    "dev:server": "nodemon server/server.js",
     "build": "npm run clear && npm run build:client && npm run build:server",
     "start": "node server/server.js",
     "lint": "eslint --ext .js --ext .jsx client/",
-    "precommit": "npm run lint"
+    "precommit": "npm run lint",
+    "start": "cross-env NODE_ENV=production node server/server.js"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +21,8 @@
   "dependencies": {
     "axios": "^0.17.1",
     "body-parser": "^1.18.2",
+    "ejs": "^2.5.7",
+    "ejs-compiled-loader": "^1.1.0",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "material-ui": "^0.20.0",
@@ -29,11 +32,14 @@
     "prop-types": "^15.6.0",
     "query-string": "^5.0.1",
     "react": "^16.2.0",
+    "react-async-bootstrapper": "^1.1.2",
     "react-dom": "^16.2.0",
+    "react-helmet": "^5.2.0",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
+    "serialize-javascript": "^1.4.0",
     "serve-favicon": "^2.4.5"
   },
   "devDependencies": {
