@@ -5,6 +5,8 @@ import {
   observer,
   inject,
 } from 'mobx-react'
+import Button from 'material-ui/Button'
+
 import {
   AppState,
 } from '../../store/appState';
@@ -32,6 +34,7 @@ export default class TopicList extends React.Component {
           <title>This is topic list</title>
           <meta name="description" content="This is description" />
         </Helmet>
+        <Button raised color="primary">Buttom</Button>
         <span> {this.props.appState.msg}</span>
       </div>
     )

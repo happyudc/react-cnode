@@ -5,12 +5,42 @@ import {
   BrowserRouter,
 } from 'react-router-dom'
 import { AppContainer } from 'react-hot-loader' // eslint-disable-line
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
+import purple from 'material-ui/colors/purple'
+import lightBlue from 'material-ui/colors/lightBlue'
+import red from 'material-ui/colors/red'
+
 import AppState from './store/appState'
 import App from './views/App'
 
-// ReactDom.hydrate(<App />, document.getElementById('root'));
+
+const theme = createMuiTheme({
+  palette: {
+    primary: purple,
+    secondary: lightBlue,
+    error: red,
+    type: 'light',
+  },
+})
 
 const initialState = window.__INITIAL_STATE__ || {} // eslint-disable-line
+
+const createApp = (TheApp) => {
+  class Main extends React.Component {
+    // Remove the server-side injected CSS.
+    componentDidMount() {
+      const jssStyles = document.getElementById('jss-server-side');
+      if (jssStyles && jssStyles.parentNode) {
+        jssStyles.parentNode.removeChild(jssStyles);
+      }
+    }
+
+    render() {
+      return <TheApp />
+    }
+  }
+  return Main
+}
 
 const root = document.getElementById('root');
 
@@ -19,7 +49,9 @@ const render = (Component) => {
     <AppContainer>
       <Provider appState={new AppState(initialState.appState)}>
         <BrowserRouter>
-          <Component />
+          <MuiThemeProvider theme={theme}>
+            <Component />
+          </MuiThemeProvider>
         </BrowserRouter>
       </Provider>
     </AppContainer>,
@@ -27,11 +59,11 @@ const render = (Component) => {
   )
 };
 
-render(App);
+render(createApp(App));
 
 if (module.hot) {
   module.hot.accept('./views/App', () => {
     const NextApp = require('./views/App').default; // eslint-disable-line
-    render(NextApp);
+    render(createApp(NextApp));
   })
 }
