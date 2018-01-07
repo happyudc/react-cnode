@@ -7,7 +7,7 @@ import {
 import { AppContainer } from 'react-hot-loader' // eslint-disable-line
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
 import purple from 'material-ui/colors/purple'
-import lightBlue from 'material-ui/colors/lightBlue'
+import pink from 'material-ui/colors/pink'
 import red from 'material-ui/colors/red'
 
 import AppState from './store/appState'
@@ -17,7 +17,7 @@ import App from './views/App'
 const theme = createMuiTheme({
   palette: {
     primary: purple,
-    secondary: lightBlue,
+    secondary: pink,
     error: red,
     type: 'light',
   },
