@@ -31,7 +31,7 @@ class MainAppBar extends React.Component {
               <HomeIcon />
             </IconButton>
             <Typography type="title" color="inherit" className={classes.flex}>
-              React CNode
+              CNode
             </Typography>
             <Button raised color="accent">
               创建话题
