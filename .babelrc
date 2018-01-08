@@ -1,7 +1,7 @@
 {
   "presets": [
     ["es2015", {"loose": true}],
-    "react", "stage-0"
+    "react", "stage-1"
   ],
   "plugins": ["transform-decorators-legacy","react-hot-loader/babel"]
 }
