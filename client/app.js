@@ -10,7 +10,7 @@ import purple from 'material-ui/colors/purple'
 import pink from 'material-ui/colors/pink'
 import red from 'material-ui/colors/red'
 
-import AppState from './store/appState'
+import { AppState, TopicStore } from './store/store'
 import App from './views/App'
 
 
@@ -44,10 +44,13 @@ const createApp = (TheApp) => {
 
 const root = document.getElementById('root');
 
+const appState = new AppState(initialState.appState)
+const topicStore = new TopicStore(initialState.topicStore)
+
 const render = (Component) => {
   ReactDom.hydrate(
     <AppContainer>
-      <Provider appState={new AppState(initialState.appState)}>
+      <Provider appState={appState} topicStore={topicStore}>
         <BrowserRouter>
           <MuiThemeProvider theme={theme}>
             <Component />
