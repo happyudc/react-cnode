@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
-
+import queryString from 'query-string'
 import Tabs, { Tab } from 'material-ui/Tabs'
 import List from 'material-ui/List'
 import { CircularProgress } from 'material-ui/Progress'
@@ -13,7 +13,7 @@ import Container from '../../layout/Container'
 
 import TopicListItem from './ListItem'
 import { TopicStore } from '../../store/store'
-
+import { tabs } from '../../util/variableDefine'
 // import {
 //   AppState,
 // } from '../../store/appState';
@@ -26,19 +26,27 @@ import { TopicStore } from '../../store/store'
   }
 }) @observer
 export default class TopicList extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      tabIndex: 0,
-    }
-  }
   componentDidMount() {
-    this.props.topicStore.fetchTopics()
+    const tab = this.getTab()
+    this.props.topicStore.fetchTopics(tab)
   }
 
-  handleChangeTab = (event, index) => {
-    this.setState({
-      tabIndex: index,
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.location.search !== this.props.location.search) {
+      this.props.topicStore.fetchTopics(this.getTab(nextProps.location.search))
+    }
+  }
+
+  getTab = (search) => {
+    search = search || this.props.location.search
+    const query = queryString.parse(search)
+    return query.tab || 'all'
+  }
+
+  handleChangeTab = (event, value) => {
+    this.props.history.push({
+      pathname: '/list',
+      search: `?tab=${value}`,
     })
   }
 
@@ -48,12 +56,11 @@ export default class TopicList extends React.Component {
 
   render() {
     const {
-      tabIndex,
-    } = this.state
-    const {
       topics,
       syncing,
     } = this.props.topicStore
+
+    const tab = this.getTab()
 
     return (
       <Container>
@@ -61,13 +68,10 @@ export default class TopicList extends React.Component {
           <title>This is topic list</title>
           <meta name="description" content="This is description" />
         </Helmet>
-        <Tabs value={tabIndex} onChange={this.handleChangeTab}>
-          <Tab label="全部" />
-          <Tab label="精华" />
-          <Tab label="分享" />
-          <Tab label="问答" />
-          <Tab label="招聘" />
-          <Tab label="客户端测试" />
+        <Tabs value={tab} onChange={this.handleChangeTab}>
+          {
+            Object.keys(tabs).map(t => <Tab key={t} label={tabs[t]} value={t} />)
+          }
         </Tabs>
         <List>
           {
@@ -83,7 +87,13 @@ export default class TopicList extends React.Component {
         {
           syncing ?
             (
-              <div>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  padding: '40px 0',
+                }}
+              >
                 <CircularProgress color="accent" size={100} />
               </div>
             ) :
