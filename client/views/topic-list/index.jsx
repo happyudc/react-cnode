@@ -9,6 +9,9 @@ import {
   observer,
   inject,
 } from 'mobx-react'
+
+// import history from '../../config/history'
+
 import Container from '../../layout/Container'
 
 import TopicListItem from './ListItem'
@@ -50,8 +53,8 @@ export default class TopicList extends React.Component {
     })
   }
 
-  handleListItemClick = () => {
-
+  handleListItemClick = (topic) => {
+    this.props.history.push(`/detail/${topic.id}`)
   }
 
   render() {
@@ -78,7 +81,7 @@ export default class TopicList extends React.Component {
             topics.map(topic => (
               <TopicListItem
                 key={topic.id}
-                onClick={this.handleListItemClick}
+                onClick={() => { this.handleListItemClick(topic) }}
                 topic={topic}
               />
             ))
