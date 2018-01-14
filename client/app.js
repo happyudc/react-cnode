@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDom from 'react-dom'
 import { Provider } from 'mobx-react'
 import {
+  // Router,
   BrowserRouter,
 } from 'react-router-dom'
 import { AppContainer } from 'react-hot-loader' // eslint-disable-line
@@ -10,7 +11,8 @@ import purple from 'material-ui/colors/purple'
 import pink from 'material-ui/colors/pink'
 import red from 'material-ui/colors/red'
 
-import AppState from './store/appState'
+// import history from './config/history'
+import { AppState, TopicStore } from './store/store'
 import App from './views/App'
 
 
@@ -44,10 +46,13 @@ const createApp = (TheApp) => {
 
 const root = document.getElementById('root');
 
+const appState = new AppState(initialState.appState)
+const topicStore = new TopicStore(initialState.topicStore)
+
 const render = (Component) => {
   ReactDom.hydrate(
     <AppContainer>
-      <Provider appState={new AppState(initialState.appState)}>
+      <Provider appState={appState} topicStore={topicStore}>
         <BrowserRouter>
           <MuiThemeProvider theme={theme}>
             <Component />
